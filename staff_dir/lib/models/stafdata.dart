@@ -1,6 +1,8 @@
-
 class StafData {
   String? name;
-  int? number;
-  StafData({this.name, this.number});//format data to transfer
+  String? jawatan;
+  int? nohp;
+
+  StafData({this.name, this.jawatan, this.nohp}); //format data to transfer
+
 }

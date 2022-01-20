@@ -1,8 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:staff_dir/views/staf_list.dart';
 
-class StaffFormPage extends StatelessWidget {
+class StaffFormPage extends StatefulWidget {
   const StaffFormPage({Key? key}) : super(key: key);
+
+  @override
+  State<StaffFormPage> createState() => _StaffFormPageState();
+}
+
+class _StaffFormPageState extends State<StaffFormPage> {
+  final TextEditingController _nameController = TextEditingController();
+  final TextEditingController _jawController = TextEditingController();
+  final TextEditingController _nohpController = TextEditingController();
+
+  @override
+  void dispose() {
+    _nameController.dispose();
+    _jawController.dispose();
+    _nohpController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -12,9 +30,15 @@ class StaffFormPage extends StatelessWidget {
       ),
       body: ListView(
         children: [
+          const Padding(
+            padding: EdgeInsets.all(8.0),
+            child: CircleAvatar(
+                child: Image(image: AssetImage('images/staff.png'))),
+          ),
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: TextFormField(
+              controller: _nameController,
               keyboardType: TextInputType.text,
               inputFormatters: [
                 FilteringTextInputFormatter.allow(RegExp('[a-zA-Z]')),
@@ -28,21 +52,46 @@ class StaffFormPage extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: TextFormField(
+              controller: _jawController,
+              keyboardType: TextInputType.text,
+              inputFormatters: [
+                FilteringTextInputFormatter.allow(RegExp('[a-zA-Z]')),
+              ],
+              decoration: const InputDecoration(
+                border: OutlineInputBorder(),
+                labelText: 'staf\'s jawatan',
+              ),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: TextFormField(
+              controller: _nohpController,
               keyboardType: TextInputType.number,
               inputFormatters: [
                 FilteringTextInputFormatter.allow(RegExp('[1-9]')),
               ],
               decoration: const InputDecoration(
                 border: OutlineInputBorder(),
-                labelText: 'staf\'s age',
+                labelText: 'staf\'s handphone no',
               ),
             ),
           ),
           Padding(
             padding: const EdgeInsets.all(16.0),
             child: ElevatedButton(
-              child: const Text('Save / update', style: TextStyle(fontSize: 20)),
-              onPressed: () {},
+              child:
+                  const Text('Save / update', style: TextStyle(fontSize: 20)),
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const StaffListPage(
+                             // name: _nameController.text,
+                             // jaw: _jawController.text,
+                             // nohp: int.parse(_nohpController.text),
+                            )));
+              },
             ),
           ),
         ],
