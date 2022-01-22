@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:staff_dir/models/stafdata.dart';
 import 'package:staff_dir/views/staf_list.dart';
 
 class StaffFormPage extends StatefulWidget {
@@ -41,7 +42,7 @@ class _StaffFormPageState extends State<StaffFormPage> {
               controller: _nameController,
               keyboardType: TextInputType.text,
               inputFormatters: [
-                FilteringTextInputFormatter.allow(RegExp('[a-zA-Z]')),
+                FilteringTextInputFormatter.allow(RegExp('[a-zA-Z ]')),
               ],
               decoration: const InputDecoration(
                 border: OutlineInputBorder(),
@@ -55,7 +56,7 @@ class _StaffFormPageState extends State<StaffFormPage> {
               controller: _jawController,
               keyboardType: TextInputType.text,
               inputFormatters: [
-                FilteringTextInputFormatter.allow(RegExp('[a-zA-Z]')),
+                FilteringTextInputFormatter.allow(RegExp('[a-zA-Z ]')),
               ],
               decoration: const InputDecoration(
                 border: OutlineInputBorder(),
@@ -69,7 +70,7 @@ class _StaffFormPageState extends State<StaffFormPage> {
               controller: _nohpController,
               keyboardType: TextInputType.number,
               inputFormatters: [
-                FilteringTextInputFormatter.allow(RegExp('[1-9]')),
+                FilteringTextInputFormatter.allow(RegExp('[0-9]')),
               ],
               decoration: const InputDecoration(
                 border: OutlineInputBorder(),
@@ -83,14 +84,13 @@ class _StaffFormPageState extends State<StaffFormPage> {
               child:
                   const Text('Save / update', style: TextStyle(fontSize: 20)),
               onPressed: () {
+                StaffsData stafdata = StaffsData(_nameController.text,
+                    _jawController.text, int.tryParse(_nohpController.text));
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => const StaffListPage(
-                             // name: _nameController.text,
-                             // jaw: _jawController.text,
-                             // nohp: int.parse(_nohpController.text),
-                            )));
+                        builder: (context) =>
+                            StaffListPage(stafdataparam: stafdata)));
               },
             ),
           ),

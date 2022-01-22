@@ -2,15 +2,22 @@ import 'package:flutter/material.dart';
 import 'package:staff_dir/models/stafdata.dart';
 
 class StaffListPage extends StatefulWidget {
-  const StaffListPage({Key? key, String? name, String? jaw, int? nohp})
-      : super(key: key);
+  final StaffsData? stafdataparam;
+  const StaffListPage({Key? key, this.stafdataparam}) : super(key: key);
 
   @override
   State<StaffListPage> createState() => _StaffListPageState();
 }
 
 class _StaffListPageState extends State<StaffListPage> {
-  final List<StafData> stafflist = [];
+  StaffsData? _stafdata;
+
+  @override
+  void initState() {
+    _stafdata = widget.stafdataparam;
+    super.initState();
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -20,25 +27,58 @@ class _StaffListPageState extends State<StaffListPage> {
         actions: const [Icon(Icons.add)],
       ),
       body: ListView(
-        children: [ListTile()],
+        children: [
+          ListTile(
+              leading: const CircleAvatar(
+                backgroundImage: AssetImage('images/staff.png'),
+              ),
+              title: const Text('Melaka'),
+              trailing: Wrap(
+                children: [
+                  IconButton(
+                    icon: const Icon(
+                      Icons.edit,
+                      color: Colors.blue,
+                    ),
+                    onPressed: () {},
+                  ),
+                  IconButton(
+                    icon: const Icon(
+                      Icons.delete,
+                      color: Colors.red,
+                    ),
+                    onPressed: () {},
+                  ),
+                ],
+              )),
+          ListTile(
+            leading: const CircleAvatar(
+              backgroundImage: AssetImage('images/staff.png'),
+            ),
+            title: Text(_stafdata!.name!),
+            subtitle: Text(_stafdata!.jawatan!),
+            trailing: Wrap(
+              children: [
+                IconButton(
+                  icon: const Icon(
+                    Icons.edit,
+                    color: Colors.blue,
+                  ),
+                  onPressed: () {},
+                ),
+                IconButton(
+                  icon: const Icon(
+                    Icons.delete,
+                    color: Colors.red,
+                  ),
+                  onPressed: () {},
+                ),
+              ],
+            ), //Image.asset('images/houseicon.png'),
+          ),
+        ],
       ),
     );
   }
 
-  void addStaff(String namestaf, String jawstaf, int nohpstaf) {
-    final stafData = StafData(
-      name: namestaf,
-      jawatan: jawstaf,
-      nohp: nohpstaf,
-    );
-    setState(() {
-      stafflist.add(stafData);
-    });
-  }
-
-  void deleteStaffList(String namestaf) {
-    setState(() {
-      stafflist.removeWhere((element) => element.name == namestaf);
-    });
-  }
 }
