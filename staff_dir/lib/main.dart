@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:staff_dir/views/staf_form.dart';
+import 'package:staff_dir/views/mainpage.dart';
 
 void main() {
   runApp(const MyApp());
@@ -16,7 +16,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: StaffFormPage(),
+      home: const MainPage(),
     );
   }
 }
